@@ -8,6 +8,7 @@ import { FurnitureDetails } from '~/src/app/models/furniture-details.model';
 import { FurnitureType } from '~/src/app/models/furniture-type.model';
 import { Material } from '~/src/app/models/material.model';
 import { FurnitureFormComponent } from '~/src/app/components/furniture-form/furniture-form.component';
+import { FurnitureFormData } from '~/src/app/models/furniture-form-data.model';
 
 @Component({
   selector: 'app-furniture-edit',
@@ -76,7 +77,7 @@ export class FurnitureEditPage implements OnInit {
   }
 
   // Use the form data emitted from the child component directly.
-  submitForm(formData: FurnitureDetails): void {
+  submitForm(formData: FurnitureFormData): void {
     if (!formData) {
       this.error = 'Veuillez remplir tous les champs requis.';
       return;
