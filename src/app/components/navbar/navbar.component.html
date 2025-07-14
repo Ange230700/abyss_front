@@ -1,18 +1,30 @@
 <!-- src\app\components\navbar\navbar.component.html -->
 
-<nav class="navbar">
-  <a [routerLink]="['/']" class="home">
-    <img src="assets/logo.png" alt="Logo canapé" class="logo" />
-    <h1 class="brand">LUXURY CAMPS</h1>
-  </a>
-
-  <div class="flex items-center space-x-4">
-    <a [routerLink]="['/furniture-management']" class="menu-item">
-      Administration
+<p-menubar [model]="menuItems">
+  <ng-template #start>
+    <a [routerLink]="['/']">
+      <img src="assets/logo.png" alt="Logo canapé" class="logo" />
+      <h1>LUXURY CAMPS</h1>
     </a>
+  </ng-template>
 
-    <a [routerLink]="['/furniture-add']" class="menu-item">
-      Ajouter un meuble
+  <ng-template #item let-item let-root="root">
+    <a pRipple class="flex items-center p-menubar-item-link">
+      <span>{{ item.label }}</span>
+      <i
+        *ngIf="item.items"
+        [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"
+      ></i>
     </a>
-  </div>
-</nav>
+  </ng-template>
+  <ng-template #end>
+    <p-button
+      [icon]="colorMode === 'dark' ? 'pi pi-sun' : 'pi pi-moon'"
+      [rounded]="true"
+      [ariaLabel]="
+        colorMode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+      "
+      (onClick)="toggleDarkMode()"
+    />
+  </ng-template>
+</p-menubar>
