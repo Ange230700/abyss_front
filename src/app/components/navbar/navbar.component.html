@@ -2,8 +2,12 @@
 
 <p-menubar [model]="menuItems">
   <ng-template #start>
-    <a [routerLink]="['/']">
-      <img src="assets/logo.png" alt="Logo canapé" class="logo" />
+    <a [routerLink]="['/']" class="flex items-center p-menubar-item-link">
+      <img
+        src="assets/logo.png"
+        alt="Logo canapé"
+        class="w-12 h-12 object-contain"
+      />
       <h1>LUXURY CAMPS</h1>
     </a>
   </ng-template>
@@ -11,10 +15,6 @@
   <ng-template #item let-item let-root="root">
     <a pRipple class="flex items-center p-menubar-item-link">
       <span>{{ item.label }}</span>
-      <i
-        *ngIf="item.items"
-        [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"
-      ></i>
     </a>
   </ng-template>
   <ng-template #end>
