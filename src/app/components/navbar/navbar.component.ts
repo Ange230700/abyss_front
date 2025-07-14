@@ -24,12 +24,16 @@ export class NavbarComponent implements OnInit {
       {
         label: 'Administration',
         icon: 'pi pi-cog',
-        routerLink: '/furniture-management',
+        command: () => {
+          this.router.navigate(['/admin']);
+        },
       },
       {
         label: 'Ajouter un meuble',
         icon: 'pi pi-plus',
-        routerLink: '/furniture-add',
+        command: () => {
+          this.router.navigate(['/furniture-management']);
+        },
       },
     ];
     const savedMode = localStorage.getItem('colorMode');
