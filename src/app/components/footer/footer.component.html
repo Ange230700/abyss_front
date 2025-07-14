@@ -1,12 +1,33 @@
 <!-- src\app\components\footer\footer.component.html -->
 
-<footer class="footer">
-  <div class="footer-container">
-    <img [src]="imageUrl" alt="Logo" class="footer-logo" />
-    <p class="footer-text">© {{ currentYear }} LUXURY CAMPS. Tous droits réservés.</p>
-    <ul class="footer-links">
-      <li><a routerLink="/recrutement" class="footer-link">Recrutement</a></li>
-      <li><a routerLink="/back-office" class="footer-link">Back Office</a></li>
+<footer class="w-full text-gray-100 py-6">
+  <div
+    class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row items-center md:justify-between gap-4"
+  >
+    <div class="flex items-center gap-3">
+      <img [src]="imageUrl" alt="Logo" class="w-10 h-10 object-contain" />
+      <span class="font-semibold text-lg tracking-wide">V∅ID</span>
+    </div>
+    <p class="text-sm text-gray-400 text-center md:text-left">
+      © {{ currentYear }} V∅ID. Tous droits réservés.
+    </p>
+    <ul class="flex gap-6">
+      <li>
+        <a
+          routerLink="/recrutement"
+          class="hover:underline hover:text-primary transition-colors duration-150"
+        >
+          Recrutement
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/back-office"
+          class="hover:underline hover:text-primary transition-colors duration-150"
+        >
+          Back Office
+        </a>
+      </li>
     </ul>
   </div>
 </footer>

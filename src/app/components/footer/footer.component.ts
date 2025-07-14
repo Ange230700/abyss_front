@@ -14,7 +14,5 @@ export class FooterComponent implements OnInit {
   imageUrl: string = 'assets/logo.png';
   currentYear: number = new Date().getFullYear();
 
-  constructor() {}
-
   ngOnInit(): void {}
 }
