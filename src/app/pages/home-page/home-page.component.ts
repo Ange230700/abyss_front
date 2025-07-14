@@ -1,19 +1,27 @@
 // src\app\pages\home-page\home-page.component.ts
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FurnitureService } from '~/src/app/services/furniture.service';
 import { CardFurniture } from '~/src/app/models/card-furniture.model';
-import { FurnitureCardComponent } from '~/src/app/components/card-furniture/card-furniture.component';
+// import { FurnitureCardComponent } from '~/src/app/components/card-furniture/card-furniture.component';
+import { DataView } from 'primeng/dataview';
+import { ButtonModule } from 'primeng/button';
+import { Tag } from 'primeng/tag';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FurnitureCardComponent],
+  imports: [
+    CommonModule,
+    /*FurnitureCardComponent,*/ DataView,
+    ButtonModule,
+    Tag,
+  ],
   templateUrl: './home-page.component.html',
 })
 export class HomePage implements OnInit {
-  cardFurnitures: CardFurniture[] = [];
+  furnitures = signal<CardFurniture[]>([]);
   loading = true;
   error = false;
 
@@ -26,7 +34,7 @@ export class HomePage implements OnInit {
   private loadFurnitures() {
     this.furnitureService.getFurnitures().subscribe({
       next: (data) => {
-        this.cardFurnitures = data;
+        this.furnitures.set(data);
         this.loading = false;
       },
       error: (err) => {
@@ -35,5 +43,17 @@ export class HomePage implements OnInit {
         this.loading = false;
       },
     });
+  }
+
+  getSeverity(/*furniture: CardFurniture*/) {
+    // Optionally, you can implement logic based on furniture status or stock.
+    // Here, let's assume all are 'INSTOCK' for a basic tag, or you can adjust.
+    // if (furniture.stock === 'INSTOCK') {
+    //   return 'info';
+    // }
+    // if (furniture.stock === 'LOW') {
+    //   return 'warning';
+    // }
+    return 'success';
   }
 }

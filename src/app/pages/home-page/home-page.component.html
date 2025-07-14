@@ -1,32 +1,60 @@
 <!-- src\app\pages\home-page\home-page.component.html -->
 
 <main class="home-page">
-  <!-- Chargement -->
+  <!-- Loading -->
   <div *ngIf="loading" class="loader">
     <p>Chargement des données...</p>
   </div>
 
-  <!-- Liste des cartes -->
-  <section
-    *ngIf="cardFurnitures.length > 0 && !loading"
-    class="furnitures-list"
-  >
-    <card-furniture
-      *ngFor="let furniture of cardFurnitures"
-      [furniture]="furniture"
-    ></card-furniture>
+  <!-- DataView List -->
+  <section *ngIf="!loading && furnitures().length > 0">
+    <p-dataview #dv [value]="furnitures()" [rows]="6" [paginator]="true">
+      <ng-template pTemplate="list" let-items>
+        <div class="grid grid-cols-12 gap-4">
+          <div
+            *ngFor="let item of items; let first = first"
+            class="col-span-12 md:col-span-6 xl:col-span-4"
+          >
+            <div class="flex flex-col shadow rounded-xl p-4 gap-4 border">
+              <img
+                [src]="item.imageUrl"
+                [alt]="item.name"
+                class="rounded-lg w-full h-52 object-cover"
+              />
+
+              <div class="flex flex-col gap-1">
+                <span class="text-primary font-semibold text-lg">{{
+                  item.name
+                }}</span>
+                <span class="text-sm mb-1">#{{ item.id }}</span>
+                <div class="flex items-center gap-2">
+                  <span class="text-xl font-bold">€{{ item.price }}</span>
+                  <p-tag value="Disponible" [severity]="getSeverity()"></p-tag>
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <p-button icon="pi pi-heart" [outlined]="true"></p-button>
+                <p-button
+                  icon="pi pi-shopping-cart"
+                  label="Acheter"
+                  class="flex-1"
+                ></p-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-dataview>
   </section>
 
-  <!-- Message quand il n'y a pas de meubles -->
-  <!-- <p
-    *ngIf="cardFurnitures.length === 0 && !loading && !error"
+  <!-- Empty/Error States -->
+  <p
+    *ngIf="!loading && furnitures().length === 0 && !error"
     class="text-center mt-6"
   >
     Aucun meuble disponible pour le moment.
-  </p> -->
-
-  <!-- Message d'erreur -->
-  <!-- <p *ngIf="error" class="text-center text-red-500 mt-6">
+  </p>
+  <p *ngIf="error" class="text-center mt-6">
     Une erreur est survenue lors du chargement des données.
-  </p> -->
+  </p>
 </main>
