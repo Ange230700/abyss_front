@@ -1,0 +1,32 @@
+<!-- src\app\pages\home-page\home-page.component.html -->
+
+<main class="home-page">
+  <!-- Chargement -->
+  <div *ngIf="loading" class="loader">
+    <p>Chargement des données...</p>
+  </div>
+
+  <!-- Liste des cartes -->
+  <section
+    *ngIf="cardFurnitures.length > 0 && !loading"
+    class="furnitures-list"
+  >
+    <card-furniture
+      *ngFor="let furniture of cardFurnitures"
+      [furniture]="furniture"
+    ></card-furniture>
+  </section>
+
+  <!-- Message quand il n'y a pas de meubles -->
+  <!-- <p
+    *ngIf="cardFurnitures.length === 0 && !loading && !error"
+    class="text-center mt-6"
+  >
+    Aucun meuble disponible pour le moment.
+  </p> -->
+
+  <!-- Message d'erreur -->
+  <!-- <p *ngIf="error" class="text-center text-red-500 mt-6">
+    Une erreur est survenue lors du chargement des données.
+  </p> -->
+</main>

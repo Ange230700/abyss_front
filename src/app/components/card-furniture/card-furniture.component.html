@@ -1,0 +1,16 @@
+<!-- src\app\components\card-furniture\card-furniture.component.html -->
+
+<div class="card-wrapper">
+  <strong class="card-title">{{ furniture.name }}</strong>
+  <img
+    [src]="furniture.imageUrl"
+    alt="{{ furniture.name }}"
+    class="card-image"
+  />
+  <div class="card-footer">
+    <p class="furniture-price">{{ furniture.price }}€</p>
+    <a [routerLink]="['/furniture', furniture.id]" class="details-link">
+      Voir détails
+    </a>
+  </div>
+</div>

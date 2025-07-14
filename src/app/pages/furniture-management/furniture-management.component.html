@@ -1,0 +1,87 @@
+<!-- src\app\pages\furniture-management\furniture-management.component.html -->
+
+<div class="p-8">
+  <h1 class="text-2xl font-bold mb-4">Gestion des meubles</h1>
+
+  <div *ngIf="loading" class="text-center">Chargement...</div>
+  <div *ngIf="error" class="text-center text-red-500">
+    Erreur lors du chargement des meubles.
+  </div>
+
+  <div *ngIf="!loading && !error">
+    <!-- Dashboard Section -->
+    <div class="mb-6">
+      <div class="grid grid-cols-3 gap-4">
+        <div class="bg-orange-50 text-emerald-950 p-4 rounded-lg">
+          <p>Total des meubles</p>
+          <p class="text-lg font-bold">{{ furnitures.length }}</p>
+        </div>
+        <!-- You can add more dashboard cards here if needed -->
+      </div>
+    </div>
+
+    <!-- Table Section -->
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white text-gray-900">
+        <thead class="bg-emerald-950 text-white">
+          <tr>
+            <th class="py-3 px-4 text-left">ID</th>
+            <th class="py-3 px-4 text-left">Nom</th>
+            <th class="py-3 px-4 text-left">Prix</th>
+            <th class="py-3 px-4 text-left">Image</th>
+            <th class="py-3 px-4 text-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-300">
+          <tr
+            *ngFor="let furniture of furnitures"
+            class="hover:bg-gray-100 transition duration-200"
+          >
+            <td class="py-3 px-4">{{ furniture.id }}</td>
+            <td class="py-3 px-4">{{ furniture.name }}</td>
+            <td class="py-3 px-4">{{ furniture.price }}€</td>
+            <td class="py-3 px-4">
+              <img
+                [src]="furniture.imageUrl"
+                alt="{{ furniture.name }}"
+                class="w-16 h-auto rounded"
+              />
+            </td>
+            <td class="py-3 px-4">
+              <button
+                (click)="editFurniture(furniture.id)"
+                class="bg-cyan-950 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow transition duration-200"
+              >
+                Modifier
+              </button>
+              <button
+                (click)="deleteFurniture(furniture.id)"
+                class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg shadow transition duration-200 ml-2"
+              >
+                Supprimer
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination (optional) -->
+    <!-- <div class="mt-4 flex justify-center">
+      <button
+        (click)="pageNumber > 1 && (pageNumber--, loadFurnitures())"
+        class="px-3 py-1 bg-gray-300 rounded mr-2"
+      >
+        Previous
+      </button>
+      <span class="px-3 py-1">{{ pageNumber }}</span>
+      <button
+        (click)="pageNumber < totalPages && (pageNumber++, loadFurnitures())"
+        class="px-3 py-1 bg-gray-300 rounded ml-2"
+      >
+        Next
+      </button>
+    </div> -->
+  </div>
+</div>
+

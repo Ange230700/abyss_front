@@ -1,0 +1,9 @@
+<!-- src\app\pages\furniture-add\furniture-add.component.html -->
+
+<app-furniture-form
+  [furnitureTypes]="furnitureTypes"
+  [materials]="materials"
+  [statuses]="statuses"
+  [loading]="loading"
+  (formSubmit)="submitForm($event)"
+></app-furniture-form>
