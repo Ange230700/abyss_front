@@ -21,20 +21,21 @@
           [showItemNavigators]="true"
           [thumbnailsPosition]="'bottom'"
           styleClass="custom-galleria"
-
         >
           <ng-template pTemplate="item" let-item>
             <div class="custom-galleria-item">
-              <img [src]="item.itemImageSrc" class="custom-galleria-image" />
+              <img
+                [src]="item.itemImageSrc"
+                class="custom-galleria-image"
+                [alt]="furniture.name"
+              />
             </div>
           </ng-template>
           <ng-template pTemplate="thumbnail" let-item>
-            <img [src]="item.thumbnailImageSrc" />
+            <img [src]="item.thumbnailImageSrc" [alt]="furniture.name" />
           </ng-template>
         </p-galleria>
       </div>
-
-
 
       <!-- Informations principales -->
       <div class="furniture-details-wrapper">
@@ -42,7 +43,7 @@
           <h2 class="description-title">Description</h2>
           <p class="description-text">{{ furniture.description }}</p>
 
-          <div class="mt-4 text-black">
+          <div class="mt-4">
             <p class="price-title">
               Prix:
               <span class="price-text">{{ furniture.price }}€</span>
@@ -60,7 +61,7 @@
 
         <div>
           <h2 class="fields-title">Caractéristiques</h2>
-          <ul class="space-y-2 text-black">
+          <ul class="space-y-2">
             <li>Type: {{ furniture.type }}</li>
             <li>Dimensions: {{ furniture.size }}</li>
             <li>Couleur: {{ furniture.colour }}</li>
@@ -70,18 +71,16 @@
       </div>
 
       <!-- Bouton d'achat -->
-      <!-- <div class="mt-8 text-center text-black">
-        <button
-          class="bg-emerald-950 text-white px-8 py-3 rounded-lg hover:bg-emerald-900 transition"
-        >
+      <div class="mt-8 text-center">
+        <button class="px-8 py-3 rounded-lg transition">
           Ajouter au panier
         </button>
-      </div> -->
+      </div>
     </div>
   </section>
 
   <!-- Message d'erreur -->
-  <!-- <p *ngIf="error" class="text-center text-red-500 mt-6">
+  <p *ngIf="error" class="text-center mt-6">
     Une erreur est survenue lors du chargement des détails.
-  </p> -->
+  </p>
 </main>

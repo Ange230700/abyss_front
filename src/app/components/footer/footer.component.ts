@@ -1,6 +1,6 @@
 // src\app\components\footer\footer.component.ts
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -10,9 +10,7 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, RouterModule],
   templateUrl: './footer.component.html',
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
   imageUrl: string = 'assets/logo.png';
   currentYear: number = new Date().getFullYear();
-
-  ngOnInit(): void {}
 }

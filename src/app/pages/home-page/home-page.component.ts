@@ -4,7 +4,6 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FurnitureService } from '~/src/app/services/furniture.service';
 import { CardFurniture } from '~/src/app/models/card-furniture.model';
-// import { FurnitureCardComponent } from '~/src/app/components/card-furniture/card-furniture.component';
 import { DataView } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { Tag } from 'primeng/tag';
