@@ -79,13 +79,14 @@ export class FurnitureService {
     return this.http.delete<void>(`${this.apiUrl}/furniture/${id}`);
   }
 
-  // Use the actual input shape if your form does NOT provide all of FurnitureDetails fields!
   createFurniture(
     furnitureData: FurnitureFormData,
   ): Observable<FurnitureDetails> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { type, ...payload } = furnitureData;
     return this.http.post<FurnitureDetails>(
       `${this.apiUrl}/furniture`,
-      furnitureData,
+      payload,
     );
   }
 
