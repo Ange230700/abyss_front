@@ -25,14 +25,14 @@ export class NavbarComponent implements OnInit {
         label: 'Administration',
         icon: 'pi pi-cog',
         command: () => {
-          this.router.navigate(['/admin']);
+          this.router.navigate(['/furniture-management']);
         },
       },
       {
         label: 'Add Furniture',
         icon: 'pi pi-plus',
         command: () => {
-          this.router.navigate(['/furniture-management']);
+          this.router.navigate(['/furniture-add']);
         },
       },
     ];

@@ -1,13 +1,13 @@
 // src/app/utils/status-mapper.ts
 export const StatusMap = {
-  Disponible: 'AVAILABLE',
-  'Rupture de stock': 'OUT_OF_STOCK',
-  Discontinué: 'DISCONTINUED',
+  Available: 'AVAILABLE',
+  'Out of Stock': 'OUT_OF_STOCK',
+  Discontinued: 'DISCONTINUED',
 } as const;
 export const StatusReverseMap = {
-  AVAILABLE: 'Disponible',
-  OUT_OF_STOCK: 'Rupture de stock',
-  DISCONTINUED: 'Discontinué',
+  AVAILABLE: 'Available',
+  OUT_OF_STOCK: 'Out of Stock',
+  DISCONTINUED: 'Discontinued',
 };
 export function isBackendStatus(
   status: string,

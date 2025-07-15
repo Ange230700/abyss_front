@@ -61,7 +61,7 @@ export class FurnitureService {
 
   getFurnitureByIdForDetails(id: number): Observable<FurnitureDetails> {
     return this.http
-      .get<FurnitureDetailsApiResponse>(`${this.apiUrl}/furniture/${id}`)
+      .get<FurnitureDetailsApiResponse>(`${this.apiUrl}/furnitures/${id}`)
       .pipe(
         map((response) => {
           return {
@@ -75,7 +75,7 @@ export class FurnitureService {
 
   getFurnitureByIdForForm(id: number): Observable<FurnitureDetails> {
     return this.http
-      .get<FurnitureDetailsApiResponse>(`${this.apiUrl}/furniture/${id}`)
+      .get<FurnitureDetailsApiResponse>(`${this.apiUrl}/furnitures/${id}`)
       .pipe(
         map((response) => {
           return {
@@ -88,7 +88,7 @@ export class FurnitureService {
   }
 
   deleteFurniture(id: number) {
-    return this.http.delete<void>(`${this.apiUrl}/furniture/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/furnitures/${id}`);
   }
 
   createFurniture(
@@ -112,7 +112,7 @@ export class FurnitureService {
 
   updateFurniture(id: number, furnitureData: FurnitureFormData) {
     return this.http.patch<FurnitureDetails>(
-      `${this.apiUrl}/furniture/${id}`,
+      `${this.apiUrl}/furnitures/${id}`,
       furnitureData,
     );
   }
