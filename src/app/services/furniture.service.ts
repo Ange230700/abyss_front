@@ -10,6 +10,14 @@ import { FurnitureType } from '~/src/app/models/furniture-type.model';
 import { Material } from '~/src/app/models/material.model';
 import { FurnitureFormData } from '~/src/app/models/furniture-form-data.model';
 
+type RawCardFurniture = {
+  id?: number;
+  name?: string;
+  price?: number;
+  imageUrl?: string;
+  imageUrls?: string[];
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -18,25 +26,24 @@ export class FurnitureService {
 
   constructor(private readonly http: HttpClient) {}
 
-  // If your API always returns an array, prefer this:
   getFurnitures(): Observable<CardFurniture[]> {
     return this.http
-      .get<CardFurniture[] | CardFurniture>(`${this.apiUrl}/furnitures`)
+      .get<RawCardFurniture[] | RawCardFurniture>(`${this.apiUrl}/furnitures`)
       .pipe(
         map((response) => {
-          // If API returns a single object, wrap it into an array
+          const mapToCard = (item: RawCardFurniture): CardFurniture => ({
+            id: item.id ?? 0,
+            name: item.name ?? '',
+            price: item.price ?? 0,
+            imageUrl: Array.isArray(item.imageUrls)
+              ? item.imageUrls[0] || ''
+              : item.imageUrl || '',
+          });
+
           if (Array.isArray(response)) {
-            return response;
+            return response.map(mapToCard);
           } else {
-            // Defensive: fallback if the backend returns a single object
-            return [
-              {
-                id: response.id || 0,
-                name: response.name || '',
-                price: response.price || 0,
-                imageUrl: response.imageUrl || '',
-              },
-            ];
+            return [mapToCard(response)];
           }
         }),
       );

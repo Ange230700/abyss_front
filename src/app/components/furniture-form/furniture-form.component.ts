@@ -20,6 +20,12 @@ import { CommonModule } from '@angular/common';
 import { FurnitureType } from '~/src/app/models/furniture-type.model';
 import { Material } from '~/src/app/models/material.model';
 import { FurnitureFormData } from '~/src/app/models/furniture-form-data.model';
+import {
+  StatusMap,
+  StatusReverseMap,
+  isBackendStatus,
+  isFrontStatus,
+} from '~/src/app/utils/status-mapper';
 
 @Component({
   selector: 'app-furniture-form',
@@ -76,13 +82,9 @@ export class FurnitureFormComponent implements OnInit, OnChanges {
   }
 
   private populateForm(data: FurnitureFormData): void {
-    // Map backend status to French display status
-    const statusMap: { [key: string]: string } = {
-      AVAILABLE: 'Disponible',
-      OUT_OF_STOCK: 'Rupture de stock',
-      DISCONTINUED: 'Discontinué',
-    };
-
+    const statusValue = isBackendStatus(data.status)
+      ? StatusReverseMap[data.status]
+      : data.status;
     this.furnitureForm.patchValue({
       name: data.name,
       description: data.description,
@@ -90,7 +92,7 @@ export class FurnitureFormComponent implements OnInit, OnChanges {
       colour: data.colour,
       quantity: data.quantity,
       price: data.price,
-      status: statusMap[data.status] || data.status,
+      status: statusValue,
       typeId:
         data.typeId ??
         (data.type ? this.getTypeIdFromTypeName(data.type) : null),
@@ -146,7 +148,17 @@ export class FurnitureFormComponent implements OnInit, OnChanges {
       return;
     }
     this.error = '';
-    this.formSubmit.emit(this.furnitureForm.value);
+    const raw = this.furnitureForm.value;
+    // Only translate if the form value matches a French status
+    let backendStatus: string;
+    if (isFrontStatus(raw.status)) {
+      backendStatus = StatusMap[raw.status as keyof typeof StatusMap];
+    } else {
+      backendStatus = raw.status;
+    }
+
+    const payload = { ...raw, status: backendStatus };
+    this.formSubmit.emit(payload);
   }
 
   private getTypeIdFromTypeName(typeName: string): number | null {
