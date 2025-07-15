@@ -3,42 +3,85 @@
 <main class="home-page">
   <!-- Loading -->
   <div *ngIf="loading" class="loader">
-    <p>Chargement des données...</p>
+    <p>Loading furniture...</p>
   </div>
 
-  <!-- DataView List -->
+  <!-- DataView List (PrimeNG Card Layout Example) -->
   <section *ngIf="!loading && furnitures().length > 0">
     <p-dataview #dv [value]="furnitures()" [rows]="6" [paginator]="true">
       <ng-template pTemplate="list" let-items>
-        <div class="grid grid-cols-12 gap-4">
+        <div class="grid grid-cols-12 gap-4 grid-nogutter">
           <div
             *ngFor="let item of items; let first = first"
             class="col-span-12 md:col-span-6 xl:col-span-4"
           >
-            <div class="flex flex-col shadow rounded-xl p-4 gap-4 border">
-              <img
-                [src]="item.imageUrl"
-                [alt]="item.name"
-                class="rounded-lg w-full h-52 object-cover"
-              />
-
-              <div class="flex flex-col gap-1">
-                <span class="text-primary font-semibold text-lg">{{
-                  item.name
-                }}</span>
-                <span class="text-sm mb-1">#{{ item.id }}</span>
-                <div class="flex items-center gap-2">
-                  <span class="text-xl font-bold">€{{ item.price }}</span>
-                  <p-tag value="Disponible" [severity]="getSeverity()"></p-tag>
-                </div>
+            <div
+              class="flex flex-col sm:flex-row sm:items-center p-6 gap-4 shadow rounded-xl border"
+              [ngClass]="{
+                'border-t border-surface-200 dark:border-surface-700': !first,
+              }"
+            >
+              <div class="md:w-40 relative">
+                <img
+                  class="block xl:block mx-auto rounded-border w-full h-40 object-cover"
+                  [src]="getImage(item)"
+                  [alt]="item.name"
+                  appImgFallback="/assets/default.jpg"
+                />
+                <p-tag
+                  [value]="getDisplayStatus(item)"
+                  [severity]="getSeverity(item)"
+                  class="absolute top-2 left-2 dark:!bg-surface-900"
+                ></p-tag>
               </div>
-              <div class="flex gap-2">
-                <p-button icon="pi pi-heart" [outlined]="true"></p-button>
-                <p-button
-                  icon="pi pi-shopping-cart"
-                  label="Acheter"
-                  class="flex-1"
-                ></p-button>
+              <div
+                class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6"
+              >
+                <div
+                  class="flex flex-row md:flex-col justify-between items-start gap-2"
+                >
+                  <div>
+                    <span class="font-medium text-secondary text-sm"
+                      >#{{ item.id }}</span
+                    >
+                    <div
+                      class="text-lg font-medium text-surface-900 dark:text-surface-0 mt-2"
+                    >
+                      {{ item.name }}
+                    </div>
+                  </div>
+
+                  <div
+                    class="bg-surface-100 dark:bg-surface-700 p-1"
+                    style="border-radius: 30px"
+                  >
+                    <div
+                      class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-1 px-2"
+                    >
+                      <span
+                        class="text-surface-900 dark:text-surface-0 font-medium text-sm"
+                        >4.5</span
+                      >
+                      <i class="pi pi-star-fill"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex flex-col md:items-end gap-8">
+                  <span
+                    class="text-xl font-semibold text-surface-900 dark:text-surface-0"
+                  >
+                    €{{ item.price }}
+                  </span>
+                  <div class="flex flex-row-reverse md:flex-row gap-2">
+                    <p-button icon="pi pi-heart" [outlined]="true"></p-button>
+                    <p-button
+                      icon="pi pi-shopping-cart"
+                      class="flex-auto md:flex-initial whitespace-nowrap"
+                      label="Buy Now"
+                      [disabled]="getSeverity(item) === 'danger'"
+                    ></p-button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -52,9 +95,9 @@
     *ngIf="!loading && furnitures().length === 0 && !error"
     class="text-center mt-6"
   >
-    Aucun meuble disponible pour le moment.
+    No furniture available at the moment.
   </p>
   <p *ngIf="error" class="text-center mt-6">
-    Une erreur est survenue lors du chargement des données.
+    An error occurred while loading furniture.
   </p>
 </main>

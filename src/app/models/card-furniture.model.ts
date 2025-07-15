@@ -5,4 +5,5 @@ export interface CardFurniture {
   name: string;
   price: number;
   imageUrl: string;
+  status?: string;
 }
