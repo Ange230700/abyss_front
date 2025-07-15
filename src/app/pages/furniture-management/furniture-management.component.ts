@@ -17,7 +17,7 @@ export class FurnitureManagementPage implements OnInit {
   loading = true;
   error = false;
   pageNumber = 1;
-  totalPages = 1; // You can adjust this if your API supports pagination
+  totalPages = 1;
 
   constructor(
     private readonly furnitureService: FurnitureService,
@@ -36,7 +36,7 @@ export class FurnitureManagementPage implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        console.error('Erreur lors du chargement des meubles', err);
+        console.error('Error loading furniture', err);
         this.error = true;
         this.loading = false;
       },
@@ -49,14 +49,14 @@ export class FurnitureManagementPage implements OnInit {
   }
 
   deleteFurniture(id: number): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce meuble ?')) {
+    if (confirm('Are you sure you want to delete this furniture?')) {
       this.furnitureService.deleteFurniture(id).subscribe({
         next: () => {
           // Optionally display a success message here
           this.loadFurnitures();
         },
         error: (err) => {
-          console.error('Erreur lors de la suppression du meuble', err);
+          console.error('Error deleting furniture', err);
           // Optionally display an error message here
         },
       });

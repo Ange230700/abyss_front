@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
         },
       },
       {
-        label: 'Ajouter un meuble',
+        label: 'Add Furniture',
         icon: 'pi pi-plus',
         command: () => {
           this.router.navigate(['/furniture-management']);
