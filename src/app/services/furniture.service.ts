@@ -9,6 +9,7 @@ import { FurnitureDetails } from '~/src/app/models/furniture-details.model';
 import { FurnitureType } from '~/src/app/models/furniture-type.model';
 import { Material } from '~/src/app/models/material.model';
 import { FurnitureFormData } from '~/src/app/models/furniture-form-data.model';
+import { normalizeImageUrls } from '~/src/app/utils/image-utils';
 
 type RawCardFurniture = {
   id?: number;
@@ -16,6 +17,14 @@ type RawCardFurniture = {
   price?: number;
   imageUrl?: string;
   imageUrls?: string[];
+};
+
+type FurnitureDetailsApiResponse = FurnitureDetails & {
+  imageUrl?: string;
+  imageUrls?: string[];
+  materialNames?: string[];
+  materialIds?: number[];
+  materials?: string[];
 };
 
 @Injectable({
@@ -31,14 +40,15 @@ export class FurnitureService {
       .get<RawCardFurniture[] | RawCardFurniture>(`${this.apiUrl}/furnitures`)
       .pipe(
         map((response) => {
-          const mapToCard = (item: RawCardFurniture): CardFurniture => ({
-            id: item.id ?? 0,
-            name: item.name ?? '',
-            price: item.price ?? 0,
-            imageUrl: Array.isArray(item.imageUrls)
-              ? item.imageUrls[0] || ''
-              : item.imageUrl || '',
-          });
+          const mapToCard = (item: RawCardFurniture): CardFurniture => {
+            const images = normalizeImageUrls(item);
+            return {
+              id: item.id ?? 0,
+              name: item.name ?? '',
+              price: item.price ?? 0,
+              imageUrl: images[0] ?? '',
+            };
+          };
 
           if (Array.isArray(response)) {
             return response.map(mapToCard);
@@ -51,27 +61,29 @@ export class FurnitureService {
 
   getFurnitureByIdForDetails(id: number): Observable<FurnitureDetails> {
     return this.http
-      .get<
-        FurnitureDetails & { materialNames?: string[] }
-      >(`${this.apiUrl}/furniture/${id}`)
+      .get<FurnitureDetailsApiResponse>(`${this.apiUrl}/furniture/${id}`)
       .pipe(
-        map((response) => ({
-          ...response,
-          materials: response.materialNames || [],
-        })),
+        map((response) => {
+          return {
+            ...response,
+            imageUrls: normalizeImageUrls(response),
+            materials: response.materialNames || response.materials || [],
+          };
+        }),
       );
   }
 
   getFurnitureByIdForForm(id: number): Observable<FurnitureDetails> {
     return this.http
-      .get<
-        FurnitureDetails & { materialIds?: number[] }
-      >(`${this.apiUrl}/furniture/${id}`)
+      .get<FurnitureDetailsApiResponse>(`${this.apiUrl}/furniture/${id}`)
       .pipe(
-        map((response) => ({
-          ...response,
-          materials: [],
-        })),
+        map((response) => {
+          return {
+            ...response,
+            imageUrls: normalizeImageUrls(response),
+            materials: [],
+          };
+        }),
       );
   }
 
