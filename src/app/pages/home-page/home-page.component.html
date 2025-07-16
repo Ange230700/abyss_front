@@ -6,82 +6,43 @@
     <p>Loading furniture...</p>
   </div>
 
-  <!-- DataView List (PrimeNG Card Layout Example) -->
   <section *ngIf="!loading && furnitures().length > 0">
-    <p-dataview #dv [value]="furnitures()" [rows]="6" [paginator]="true">
-      <ng-template pTemplate="list" let-items>
-        <div class="grid grid-cols-12 gap-4 grid-nogutter">
-          <div
-            *ngFor="let item of items; let first = first"
-            class="col-span-12 md:col-span-6 xl:col-span-4"
-          >
+    <div class="card">
+      <p-dataview #dv [value]="furnitures()" [layout]="'grid'">
+        <ng-template pTemplate="grid" let-items>
+          <div class="grid grid-cols-12 gap-4 grid-nogutter">
             <div
-              class="flex flex-col sm:flex-row sm:items-center p-6 gap-4 shadow rounded-xl border"
-              [ngClass]="{
-                'border-t border-surface-200 dark:border-surface-700': !first,
-              }"
+              *ngFor="let item of items; let first = first"
+              class="col-span-12 md:col-span-6 xl:col-span-4"
             >
-              <div class="md:w-40 relative">
-                <p-tag
-                  [value]="getDisplayStatus(item)"
-                  [severity]="getSeverity(item)"
-                  class="absolute top-2 left-2 dark:!bg-surface-900"
-                ></p-tag>
-              </div>
-              <div
-                class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6"
-              >
-                <div
-                  class="flex flex-row md:flex-col justify-between items-start gap-2"
-                >
-                  <div>
-                    <span class="font-medium text-secondary text-sm"
-                      >#{{ item.id }}</span
-                    >
-                    <div
-                      class="text-lg font-medium text-surface-900 dark:text-surface-0 mt-2"
-                    >
-                      {{ item.name }}
-                    </div>
-                  </div>
-
-                  <div
-                    class="bg-surface-100 dark:bg-surface-700 p-1"
-                    style="border-radius: 30px"
-                  >
-                    <div
-                      class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-1 px-2"
-                    >
-                      <span
-                        class="text-surface-900 dark:text-surface-0 font-medium text-sm"
-                        >4.5</span
-                      >
-                      <i class="pi pi-star-fill"></i>
-                    </div>
-                  </div>
+              <div class="p-card shadow-md rounded-lg overflow-hidden">
+                <div class="p-card-header bg-gray-100 p-3 font-bold text-lg">
+                  {{ item.name }}
                 </div>
-                <div class="flex flex-col md:items-end gap-8">
-                  <span
-                    class="text-xl font-semibold text-surface-900 dark:text-surface-0"
-                  >
-                    €{{ item.price }}
-                  </span>
-                  <div class="flex flex-row-reverse md:flex-row gap-2">
-                    <p-button icon="pi pi-heart" [outlined]="true"></p-button>
-                    <p-button
-                      icon="pi pi-shopping-cart"
-                      class="flex-auto md:flex-initial whitespace-nowrap"
-                      label="Buy Now"
-                      [disabled]="getSeverity(item) === 'danger'"
-                    ></p-button>
+                <div class="p-card-body p-3">
+                  <p class="mb-2 text-sm text-gray-700">
+                    {{ item.description }}
+                  </p>
+                  <div class="flex justify-between mb-2 text-sm">
+                    <span>Size: {{ item.size }}</span>
+                    <span>Colour: {{ item.colour }}</span>
                   </div>
+                  <div class="flex justify-between mb-2 text-sm">
+                    <span>Qty: {{ item.quantity }}</span>
+                    <span>Price: €{{ item.price.toFixed(2) }}</span>
+                  </div>
+                  <p-tag
+                    [severity]="getSeverity(item)"
+                    [value]="getDisplayStatus(item)"
+                    class="mt-2"
+                  ></p-tag>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </ng-template>
-    </p-dataview>
+        </ng-template>
+      </p-dataview>
+    </div>
   </section>
 
   <!-- Empty/Error States -->
