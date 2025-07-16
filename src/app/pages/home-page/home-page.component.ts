@@ -7,6 +7,10 @@ import { DataViewModule } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { Furniture } from '~/src/app/models/furniture.model';
+import {
+  StatusReverseMap,
+  isBackendStatus,
+} from '~/src/app/utils/status-mapper';
 
 @Component({
   selector: 'app-home',
@@ -38,17 +42,15 @@ export class HomePage implements OnInit {
   getSeverity(furniture: Furniture) {
     const status = (furniture.status || '').toUpperCase();
     if (status === 'AVAILABLE') return 'success';
-    if (status === 'OUT_OF_STOCK' || status === 'OUTOFSTOCK') return 'danger';
-    if (status === 'LOW' || status === 'LOWSTOCK') return 'warn';
+    if (status === 'OUT_OF_STOCK') return 'danger';
+    if (status === 'LOW_STOCK') return 'warn';
     return 'info';
   }
 
   getDisplayStatus(furniture: Furniture) {
     const status = (furniture.status || '').toUpperCase();
-    if (status === 'AVAILABLE') return 'Available';
-    if (status === 'OUT_OF_STOCK' || status === 'OUTOFSTOCK')
-      return 'Out of Stock';
-    if (status === 'LOW' || status === 'LOWSTOCK') return 'Low Stock';
-    return status || 'Unknown';
+    return isBackendStatus(status)
+      ? StatusReverseMap[status]
+      : status || 'Unknown';
   }
 }

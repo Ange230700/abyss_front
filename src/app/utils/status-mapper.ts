@@ -3,11 +3,13 @@
 export const StatusMap = {
   Available: 'AVAILABLE',
   'Out of Stock': 'OUT_OF_STOCK',
+  'Low Stock': 'LOW_STOCK',
   Discontinued: 'DISCONTINUED',
 } as const;
 export const StatusReverseMap = {
   AVAILABLE: 'Available',
   OUT_OF_STOCK: 'Out of Stock',
+  LOW_STOCK: 'Low Stock',
   DISCONTINUED: 'Discontinued',
 };
 export function isBackendStatus(

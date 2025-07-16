@@ -74,9 +74,9 @@ describe('HomePage', () => {
     expect(
       component.getSeverity({ ...mockFurnitures[0], status: 'OUT_OF_STOCK' }),
     ).toBe('danger');
-    expect(component.getSeverity({ ...mockFurnitures[0], status: 'LOW' })).toBe(
-      'warn',
-    );
+    expect(
+      component.getSeverity({ ...mockFurnitures[0], status: 'LOW_STOCK' }),
+    ).toBe('warn');
     expect(
       component.getSeverity({ ...mockFurnitures[0], status: 'UNKNOWN' }),
     ).toBe('info');
@@ -93,7 +93,7 @@ describe('HomePage', () => {
       }),
     ).toBe('Out of Stock');
     expect(
-      component.getDisplayStatus({ ...mockFurnitures[0], status: 'LOW' }),
+      component.getDisplayStatus({ ...mockFurnitures[0], status: 'LOW_STOCK' }),
     ).toBe('Low Stock');
     expect(
       component.getDisplayStatus({ ...mockFurnitures[0], status: '???' }),
