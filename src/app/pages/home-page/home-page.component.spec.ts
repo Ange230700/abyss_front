@@ -3,7 +3,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HomePage } from '~/src/app/pages/home-page/home-page.component';
 import { FurnitureService } from '~/src/app/services/furniture.service';
-import { of, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { Furniture } from '~/src/app/models/furniture.model';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
