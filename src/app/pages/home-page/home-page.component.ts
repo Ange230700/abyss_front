@@ -1,18 +1,18 @@
 // src\app\pages\home-page\home-page.component.ts
 
-import { Component, OnInit, signal, inject } from '@angular/core';
+import { Component, signal, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FurnitureService } from '~/src/app/services/furniture.service';
 import { DataViewModule } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
-import { Tag } from 'primeng/tag';
+import { TagModule } from 'primeng/tag';
 import { Furniture } from '~/src/app/models/furniture.model';
 
 @Component({
   selector: 'app-home',
-  standalone: true,
-  imports: [CommonModule, DataViewModule, ButtonModule, Tag],
   templateUrl: './home-page.component.html',
+  standalone: true,
+  imports: [CommonModule, DataViewModule, ButtonModule, TagModule],
 })
 export class HomePage implements OnInit {
   furnitures = signal<Furniture[]>([]);
