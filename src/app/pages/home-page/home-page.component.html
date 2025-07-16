@@ -10,12 +10,14 @@
     <div class="card">
       <p-dataview #dv [value]="furnitures()">
         <ng-template #list let-items>
-          <div class="grid grid-cols-12 gap-4 grid-nogutter">
+          <div class="grid grid-cols-12 gap-4 grid-nogutter p-4">
             <div
               *ngFor="let item of items; let first = first"
               class="col-span-12 md:col-span-6 xl:col-span-4"
             >
-              <div class="p-card shadow-md rounded-lg overflow-hidden">
+              <div
+                class="p-card shadow-lg rounded-lg overflow-hidden bg-[var(--prime-menubar-background)]"
+              >
                 <div class="p-card-header p-3 font-bold text-lg">
                   {{ item.name }}
                 </div>
