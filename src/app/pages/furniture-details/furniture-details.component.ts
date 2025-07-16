@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GalleriaModule } from 'primeng/galleria';
 import { FurnitureService } from '~/src/app/services/furniture.service';
-import { FurnitureDetails } from '~/src/app/models/furniture-details.model';
+import { Furniture } from '~/src/app/models/furniture.model';
 
 interface GalleriaImage {
   itemImageSrc: string;
@@ -26,7 +26,7 @@ interface ResponsiveOption {
   templateUrl: './furniture-details.component.html',
 })
 export class FurnitureDetailsPage implements OnInit {
-  furniture?: FurnitureDetails;
+  furniture?: Furniture;
   images: GalleriaImage[] = [];
   responsiveOptions: ResponsiveOption[] = [
     { breakpoint: '1300px', numVisible: 4 },
@@ -56,15 +56,6 @@ export class FurnitureDetailsPage implements OnInit {
     this.furnitureService.getFurnitureByIdForDetails(id).subscribe({
       next: (data) => {
         this.furniture = data;
-        // Transform the array of image URLs into objects required by p-galleria
-        if (this.furniture.imageUrls && this.furniture.imageUrls.length > 0) {
-          this.images = this.furniture.imageUrls.map((url) => ({
-            itemImageSrc: url,
-            thumbnailImageSrc: url,
-            alt: this.furniture?.name,
-            title: this.furniture?.name,
-          }));
-        }
         this.loading = false;
       },
       error: (error) => {

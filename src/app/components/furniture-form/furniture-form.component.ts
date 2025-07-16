@@ -17,15 +17,15 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FurnitureType } from '~/src/app/models/furniture-type.model';
+import { FurnitureType } from '~/src/app/models/furnituretype.model';
 import { Material } from '~/src/app/models/material.model';
-import { FurnitureFormData } from '~/src/app/models/furniture-form-data.model';
 import {
   StatusMap,
   StatusReverseMap,
   isBackendStatus,
   isFrontStatus,
 } from '~/src/app/utils/status-mapper';
+import { Furniture } from '~/src/app/models/furniture.model';
 
 @Component({
   selector: 'app-furniture-form',
@@ -34,7 +34,7 @@ import {
   templateUrl: './furniture-form.component.html',
 })
 export class FurnitureFormComponent implements OnInit, OnChanges {
-  @Input() initialData: FurnitureFormData | null = null;
+  @Input() initialData: Furniture | null = null;
   @Input() furnitureTypes: FurnitureType[] = [];
   @Input() materials: Material[] = [];
   @Input() statuses: string[] = [
@@ -43,8 +43,8 @@ export class FurnitureFormComponent implements OnInit, OnChanges {
     'Discontinué',
   ];
   @Input() loading: boolean = false;
-  @Output() formSubmit: EventEmitter<FurnitureFormData> =
-    new EventEmitter<FurnitureFormData>();
+  @Output() formSubmit /*: EventEmitter<FurnitureFormData>*/ =
+    new EventEmitter /*<FurnitureFormData>*/();
 
   furnitureForm!: FormGroup;
   error: string = '';
@@ -81,7 +81,7 @@ export class FurnitureFormComponent implements OnInit, OnChanges {
     });
   }
 
-  private populateForm(data: FurnitureFormData): void {
+  private populateForm(data: Furniture): void {
     const statusValue = isBackendStatus(data.status)
       ? StatusReverseMap[data.status]
       : data.status;
@@ -93,27 +93,7 @@ export class FurnitureFormComponent implements OnInit, OnChanges {
       quantity: data.quantity,
       price: data.price,
       status: statusValue,
-      typeId:
-        data.typeId ??
-        (data.type ? this.getTypeIdFromTypeName(data.type) : null),
     });
-    const materialIdsArray = this.furnitureForm.get('materialIds') as FormArray;
-    // Clear previous controls if needed
-    materialIdsArray.clear();
-    if (Array.isArray(data.materialIds)) {
-      data.materialIds.forEach((id: number) => {
-        materialIdsArray.push(this.fb.control(id));
-      });
-    }
-    const imageUrlsArray = this.furnitureForm.get('imageUrls') as FormArray;
-    imageUrlsArray.clear();
-    if (data.imageUrls && data.imageUrls.length > 0) {
-      data.imageUrls.forEach((url: string) => {
-        imageUrlsArray.push(this.fb.control(url));
-      });
-    } else {
-      imageUrlsArray.push(this.fb.control(''));
-    }
   }
 
   get imageUrls(): FormArray {

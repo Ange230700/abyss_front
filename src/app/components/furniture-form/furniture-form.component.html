@@ -2,13 +2,12 @@
 
 <div class="form-wrapper">
   <form [formGroup]="furnitureForm" (ngSubmit)="submit()">
-    <!-- Message d'erreur -->
     <p *ngIf="error" class="error-text">{{ error }}</p>
 
-    <!-- Nom -->
+    <!-- Name -->
     <div class="standard-container">
       <label class="field-title"
-        >Nom
+        >Name
         <input
           type="text"
           formControlName="name"
@@ -31,11 +30,10 @@
       </label>
     </div>
 
-    <!-- Taille et Couleur -->
     <div class="special-container-1">
       <div class="w-1/2">
         <label class="field-title"
-          >Taille
+          >Size
           <input
             type="text"
             formControlName="size"
@@ -46,7 +44,7 @@
       </div>
       <div class="w-1/2">
         <label class="field-title">
-          Couleur
+          Colour
           <input
             type="text"
             formControlName="colour"
@@ -57,11 +55,10 @@
       </div>
     </div>
 
-    <!-- Quantité et Prix -->
     <div class="special-container-2">
       <div>
         <label class="field-title"
-          >Quantité
+          >Quantity
           <input
             type="number"
             formControlName="quantity"
@@ -72,7 +69,7 @@
       </div>
       <div>
         <label class="field-title"
-          >Prix (€)
+          >Price (€)
           <input
             type="number"
             step="0.01"
@@ -84,13 +81,13 @@
       </div>
     </div>
 
-    <!-- Statut -->
+    <!-- Status -->
     <div class="standard-container">
       <label class="field-title"
-        >Statut
+        >Status
 
         <select formControlName="status" class="field-input" required>
-          <option value="" disabled selected>Sélectionner un statut</option>
+          <option value="" disabled selected>Select a status</option>
           <option *ngFor="let status of statuses" [value]="status">
             {{ status }}
           </option>
@@ -104,82 +101,17 @@
         "
         class="error-text"
       >
-        Le statut est requis.
+        The status is required.
       </div>
     </div>
 
-    <!-- Type -->
-    <div class="standard-container">
-      <label class="field-title"
-        >Type
-        <select formControlName="typeId" class="field-input">
-          <option value="">Sélectionner un type</option>
-          <option *ngFor="let type of furnitureTypes" [value]="type.id">
-            {{ type.name }}
-          </option>
-        </select>
-      </label>
-    </div>
-
-    <!-- Matériaux -->
-    <div class="standard-container">
-      <label class="field-title"
-        >Matériaux
-        <div *ngFor="let material of materials" class="special-container-3">
-          <input
-            type="checkbox"
-            [value]="material.id"
-            (change)="onMaterialChange($event)"
-            [checked]="
-              (furnitureForm.get('materialIds')?.value || []).indexOf(
-                material.id
-              ) !== -1
-            "
-            class="mr-2"
-          />
-          <span>{{ material.name }}</span>
-        </div>
-      </label>
-    </div>
-
-    <!-- URL des images -->
-    <div class="standard-container">
-      <label class="field-title">
-        URL des images
-        <div formArrayName="imageUrls" class="space-y-2">
-          <div
-            *ngFor="let ctrl of imageUrls.controls; let i = index"
-            class="special-container-3"
-          >
-            <input
-              [formControlName]="i"
-              type="text"
-              placeholder="URL de l'image"
-              class="field-input"
-            />
-            <button
-              type="button"
-              (click)="removeImageUrl(i)"
-              class="remove-image-button"
-            >
-              Supprimer
-            </button>
-          </div>
-        </div>
-        <button type="button" (click)="addImageUrl()" class="add-image-button">
-          Ajouter une image
-        </button>
-      </label>
-    </div>
-
-    <!-- Bouton de soumission -->
     <div class="form-footer">
       <button
         type="submit"
         [disabled]="loading || furnitureForm.invalid"
         class="add-furniture-button"
       >
-        {{ loading ? "Envoi en cours..." : "Valider" }}
+        {{ loading ? "Sending..." : "Submit" }}
       </button>
     </div>
   </form>

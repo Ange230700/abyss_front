@@ -3,21 +3,19 @@
 import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FurnitureService } from '~/src/app/services/furniture.service';
-import { CardFurniture } from '~/src/app/models/card-furniture.model';
 import { DataView } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { Tag } from 'primeng/tag';
-import { ImgFallbackDirective } from '~/src/app/directives/img-fallback.directive';
-import { CardFurnitureWithImages } from '~/src/app/models/card-furniture-with-images.model';
+import { Furniture } from '~/src/app/models/furniture.model';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, DataView, ButtonModule, Tag, ImgFallbackDirective],
+  imports: [CommonModule, DataView, ButtonModule, Tag],
   templateUrl: './home-page.component.html',
 })
 export class HomePage implements OnInit {
-  furnitures = signal<CardFurniture[]>([]);
+  furnitures = signal(<Furniture[]>[]);
   loading = true;
   error = false;
 
@@ -29,7 +27,7 @@ export class HomePage implements OnInit {
     });
   }
 
-  getSeverity(furniture: CardFurniture) {
+  getSeverity(furniture: Furniture) {
     const status = (furniture.status || '').toUpperCase();
     if (status === 'AVAILABLE') return 'success';
     if (status === 'OUT_OF_STOCK' || status === 'OUTOFSTOCK') return 'danger';
@@ -37,17 +35,12 @@ export class HomePage implements OnInit {
     return 'info';
   }
 
-  getDisplayStatus(furniture: CardFurniture) {
+  getDisplayStatus(furniture: Furniture) {
     const status = (furniture.status || '').toUpperCase();
     if (status === 'AVAILABLE') return 'Available';
     if (status === 'OUT_OF_STOCK' || status === 'OUTOFSTOCK')
       return 'Out of Stock';
     if (status === 'LOW' || status === 'LOWSTOCK') return 'Low Stock';
     return status || 'Unknown';
-  }
-
-  getImage(item: CardFurnitureWithImages): string {
-    // Use fallback logic as requested
-    return item.imageUrl || item.imageUrls?.[0] || '/assets/default.jpg';
   }
 }

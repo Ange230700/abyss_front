@@ -1,4 +1,5 @@
 // src/app/utils/status-mapper.ts
+
 export const StatusMap = {
   Available: 'AVAILABLE',
   'Out of Stock': 'OUT_OF_STOCK',

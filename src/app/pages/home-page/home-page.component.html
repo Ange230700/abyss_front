@@ -22,12 +22,6 @@
               }"
             >
               <div class="md:w-40 relative">
-                <img
-                  class="block xl:block mx-auto rounded-border w-full h-40 object-cover"
-                  [src]="getImage(item)"
-                  [alt]="item.name"
-                  appImgFallback="/assets/default.jpg"
-                />
                 <p-tag
                   [value]="getDisplayStatus(item)"
                   [severity]="getSeverity(item)"

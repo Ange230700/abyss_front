@@ -26,7 +26,6 @@
             <th class="py-3 px-4 text-left">ID</th>
             <th class="py-3 px-4 text-left">Name</th>
             <th class="py-3 px-4 text-left">Price</th>
-            <th class="py-3 px-4 text-left">Image</th>
             <th class="py-3 px-4 text-left">Actions</th>
           </tr>
         </thead>
@@ -38,13 +37,6 @@
             <td class="py-3 px-4">{{ furniture.id }}</td>
             <td class="py-3 px-4">{{ furniture.name }}</td>
             <td class="py-3 px-4">{{ furniture.price }}€</td>
-            <td class="py-3 px-4">
-              <img
-                [src]="furniture.imageUrl"
-                alt="{{ furniture.name }}"
-                class="w-16 h-auto rounded"
-              />
-            </td>
             <td class="py-3 px-4">
               <button
                 (click)="editFurniture(furniture.id)"
