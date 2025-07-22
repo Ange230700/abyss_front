@@ -1,55 +1,169 @@
-# AbyssFront
+<!-- README.md -->
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.0.
+# Abyss_front
 
-## Development server
+<!-- ![Project Logo](assets/logo.png) -->
 
-To start a local development server, run:
+**Abyss** is a modern furniture inventory and management platform developed using Angular and PrimeNG, designed to efficiently showcase furniture products, their details, availability, pricing, and administrative management. Users can browse furniture items, view detailed product information, manage inventory, and perform administrative tasks seamlessly.
+
+## Table of Contents
+
+<!-- * [Demo](#demo) -->
+
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Running the Project](#running-the-project)
+- [Project Structure](#project-structure)
+- [API Documentation](#api-documentation)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Environment Variables](#environment-variables)
+- [Contributing](#contributing)
+  <!-- * [License](#license) -->
+  <!-- * [Acknowledgements](#acknowledgements) -->
+  <!-- * [Contact](#contact) -->
+
+<!-- ## Demo
+
+Link to a live demo or screenshots:
+
+![Screenshot](assets/demo-screenshot.png) -->
+
+## Tech Stack
+
+**Frontend:**
+
+- Angular 20
+- TailwindCSS
+- PrimeNG (UI components)
+
+**Backend:**
+
+- Node.js
+- Express
+
+**Database:**
+
+- MySQL
+
+**Tools:**
+
+- Git
+- Husky (Git hooks)
+- Commitizen (commit message standardization)
+- ESLint and Prettier (code formatting and linting)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (>=20.x)
+- MySQL database
+- Docker (optional for containerization)
+
+### Installation
 
 ```bash
-ng serve
+git clone https://github.com/Ange230700/abyss_front.git
+cd abyss-front
+npm install
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Running the Project
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Start the frontend Angular app:
 
 ```bash
-ng generate component component-name
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Ensure backend API server is running separately at the configured URL.
+
+## Project Structure
+
+```
+abyss-front
+├── src
+│   ├── app
+│   │   ├── components
+│   │   │   ├── footer
+│   │   │   ├── header
+│   │   │   └── navbar
+│   │   ├── models
+│   │   ├── pages
+│   │   │   ├── furniture-details
+│   │   │   ├── furniture-management
+│   │   │   └── home-page
+│   │   ├── services
+│   │   ├── utils
+│   │   └── app.routes.ts
+│   ├── environments
+│   ├── styles
+│   ├── assets
+│   └── main.ts
+├── public
+├── package.json
+├── angular.json
+├── tsconfig.json
+└── README.md
+```
+
+## API Documentation
+
+The backend API documentation will be available soon at:
+
+- [Backend API Documentation](https://abyss-back.onrender.com/docs)
+
+## Testing
+
+Run unit and integration tests:
 
 ```bash
-ng generate --help
+npm test
 ```
 
-## Building
-
-To build the project run:
+Continuous Integration tests:
 
 ```bash
-ng build
+npm run test:ci
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Deployment
 
-## Running unit tests
+Deployment scripts and instructions will be provided soon. Project setup supports deployment platforms such as Render, Vercel, or custom VPS.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Environment Variables
 
-```bash
-ng test
+Define these environment variables in your environment files:
+
+```env
+API_BASE_URL=https://abyss-back.onrender.com
 ```
 
-## Running end-to-end tests
+## Contributing
 
-For end-to-end (e2e) testing, run:
+Contributions are welcome! Please follow these steps:
 
-```bash
-ng e2e
-```
+1. Fork the repository
+2. Create a new branch (`git checkout -b feat/new-feature` or `git checkout -b fix/issue-description`)
+3. Commit changes (`npm run commit` for standardized commit messages)
+4. Push the branch (`git push origin feat/new-feature`)
+5. Create a Pull Request
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+<!-- ## License
+
+MIT License
+
+## Acknowledgements
+
+Special thanks to the following libraries and frameworks:
+
+* [Angular](https://angular.io/)
+* [PrimeNG](https://primeng.org/)
+* [TailwindCSS](https://tailwindcss.com/)
+
+## Contact
+
+Ange-Eric-Stephane KOUAKOU - [your.email@example.com](mailto:your.email@example.com) -->
+
+[Project Link](https://github.com/Ange230700/abyss-front)
